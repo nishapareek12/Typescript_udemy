@@ -1,0 +1,379 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 1.const input1 = document.getElementById("num1")!;\par
+-adding exclamation here means that the value can't be null.\par
+2.const input1 = document.getElementById("num1")! as HTMLInputElement; \par
+-typecasting. it let the script know about the type of element.\par
+3.function add(num1: number, num2: number) \{\par
+  return num1 + num2;\par
+\}\par
+-specifying type of argument using colon.\par
+4.to run the file:\par
+-tsc file_name.ts\par
+5.to install tool for auto reload\par
+npm install --save-dev lite-server\par
+\par
+*Types in typescript\par
+-let firstName: string = "Dylan";\par
+-object types: \par
+const car: \{ type: string, model: string, year: number \} = \{\par
+  type: "Toyota",\par
+  model: "Corolla",\par
+  year: 2009\par
+\};\par
+-Array types:\par
+const names: string[] = [];\par
+this is defining array of string type.\par
+if we want to use multiple types in an array, we us any.\par
+const names: any[] = [];\par
+-tuple (fixed length array) type.\par
+A tuple is a typed array with a pre-defined length and types for each index.\par
+// define our tuple\par
+let ourTuple: [number, boolean, string];\par
+// initialize correctly\par
+ourTuple = [5, false, 'Coding God was here'];\par
+-Enum\par
+An enum is a special "class" that represents a group of constants (unchangeable variables).\par
+enum StatusCodes \{\par
+  NotFound = 404,\par
+  Success = 200,\par
+  Accepted = 202,\par
+  BadRequest = 400\par
+\}\par
+// logs 404\par
+console.log(StatusCodes.NotFound);\par
+// logs 200\par
+console.log(StatusCodes.Success);\par
+-Union type\par
+Union types are used when a value can be more than a single type.\par
+Such as when a property would be string or number.\par
+Using the | we are saying our parameter is a string or number:\par
+code:\par
+function printStatusCode(code: string | number) \{\par
+  console.log(`My status code is $\{code\}.`)\par
+\}\par
+printStatusCode(404);\par
+printStatusCode('404');\par
+-Aliases and Interfaces\par
+Type Aliases allow defining types with a custom name (an Alias).\par
+code: \par
+type Combinable = number;\par
+function combine(\par
+input1: Combinable, \par
+input2: Combinable,\par
+)\par
+*Function types:\par
+function add (n1: number, n2: number)\{\par
+     return n1 + n2\par
+\}\par
+let combineValues = (a: number, b: number) =>  number;\par
+combineValues = add;\par
+so here, arguments will be of type number and function returns result of number type.\par
+*Watch mode\par
+ the TypeScript compiler has a special feature called watch mode, which will watch a specific file (or all . ts files) for any changes. If any changes are made, it will automatically recompile. Test out watch mode on a single file by using the --watch (or -w for short) flag like so: tsc FILE_NAME --watch .\par
+tsc init: Running this command in parent folder will tell that folder to run everything , this will also create tsconfig.json file.\par
+-if we want to exclude anything from compilation we have to put that in tsconfig,json file ,between last two curly braces as \par
+"exclude": [\par
+    "analytics.ts"\par
+  ]\par
+after this ..., do tsc --watch\par
+*In tsconfig.json file we can also set target, \par
+ "target": "es2016",  for particular version of javascript.\par
+-if you want to unlock any libraries, you can do this by uncommenting  "lib" , \par
+      "lib": [] \par
+*while starting the application, you should have one tab of terminal with lite-server running on it using npm start and other tab of terminal with watch mode using tsc -w\par
+*Type guard\par
+A type guard is some expression that performs a runtime check that guarantees the type in some scope.\par
+for objects it can be done using "instanceof" or "in" operator\par
+*discrimited Unions\par
+A discriminated union is a TypeScript feature that enables the creation of a type that can represent several different possibilities or variants. \par
+*Typecasting \par
+Casting is the process of overriding a type.\par
+const input1 = document.getElementById("num1")! as HTMLInputElement; \par
+*Index properties\par
+Here we define type as errorcontainer which has property type as string and property value also string.\par
+interface ErrorContainer \{\par
+    [props: string] : string;\par
+\}\par
+const errorBag: ErrorContainer = \{\par
+    email: "Not a valid email!",\par
+    userName: "Must start with capital letter"\par
+\}\par
+\line *Function Overloads\par
+function add(a: number, b: number): number\par
+//we can define all the other possibilities here\par
+//function defination here\par
+after semicolon , we have return type here.\par
+*Optional Chaining\par
+Optional Chaining is a feature in TypeScript that allows you to access nested properties of an object or call chained methods, even when one or more of these properties are null or undefined\par
+const fetchedUserData = \{\par
+    id: "ul",\par
+    name: "Nisha",\par
+    job: \{title: "CEO", description: "my own company"\}\par
+\}\par
+console.log(fetchedUserData?.job?.title)\par
+*Nullish coalescing\par
+The nullish coalescing (??) operator is a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, and otherwise returns its left-hand side operand.\par
+const userInput ;\par
+const storedData = userInput ?? "DEFAULT";\par
+console.log(storedData)\par
+//here it will return default \par
+*Generic type\par
+Generics are a TypeScript feature that allows us to pass in various types of data and create reusable code to handle different inputs.\par
+const names: Array<string> = [];\par
+\par
+const promise: Promise<number> = new Promise((resolve, reject) => \{\par
+    setTimeout(() => \{\par
+        resolve(10);\par
+    \},2000)\par
+\});\par
+*generic functions\par
+Generics with functions help make more generalized methods which more accurately represent the types used and returned.\par
+function createPair<S, T>(v1: S, v2: T): [S, T] \{\par
+  return [v1, v2];\par
+\}\par
+console.log(createPair<string, number>('hello', 42));\par
+or \par
+function merge<T , U> (objA: T, objB: U) \{\par
+    return Object.assign(objA, objB)\par
+\}\par
+\par
+const mergedObj = merge(\{name: "Nisha"\},\{age: 30\});\par
+console.log(mergedObj.age);\par
+*generic constrains\par
+Constraints can be added to generics to limit what's allowed. The constraints make it possible to rely on a more specific type when using the generic type.\par
+we use generics by using extends keyword.\par
+function merge<T extends object , U extends object> (objA: T, objB: U) \{\par
+    return Object.assign(objA, objB)\par
+\}\par
+const mergedObj = merge(\{name: "Nisha"\},\{age: 30\});\par
+console.log(mergedObj.age);\par
+*keyof contraint\par
+function extractAndConvert(obj: T , key : U)\{\par
+    return "Value: " + obj[key];\par
+\}\par
+extractAndConvert(\{\},"name") \par
+Here in this example , the "name" key does not exist in the passed object.to make sure that the key exist in object, we pass keyof Constraint.\par
+function extractAndConvert<T extends object,U extends keyof T>(obj: T , key : U)\{\par
+    return "Value: " + obj[key];\par
+\}\par
+extractAndConvert(\{\},"name")\par
+Hence it will give error if name doesn't exist in object.\par
+*Generic classes\par
+A generic class can have generic fields (member variables) or methods.\par
+class DataStorage <T> \{\par
+  private data : T[] = [];\par
+  addItem(item : T)\{\par
+    this.data.push(item);\par
+  \}\par
+  removeItem(item : T)\{\par
+    this.data.splice(this.data.indexOf(item), 1)\par
+  \}\par
+  getItems()\{\par
+    return [...this.data];\par
+  \}\par
+\}\par
+\par
+const textStorage = new DataStorage<string>();\par
+textStorage.addItem("Nisha");\par
+textStorage.addItem("Monika");\par
+textStorage.removeItem("Nisha")\par
+console.log(textStorage.getItems());\par
+*Generic utility types\par
+1. partial\par
+Constructs a type with all properties of Type set to optional. This utility will return a type that represents all subsets of a given type.\par
+interface CourseGoal \{\par
+    title: string;\par
+    description: string;\par
+    completeUntil: Date();\par
+\}\par
+\par
+function createCourseGoal(title: string, description: string, date: Date): CourseGoal\{\par
+\par
+    let CourseGoal: Partial<CourseGoal> = \{\};\par
+    CourseGoal.title = title;\par
+    CourseGoal.description = description;\par
+    CourseGoal.completeUntil = date;\par
+    return CourseGoal as CourseGoal;\par
+\}\par
+2.Readonly \par
+const names: Readonly<string[]> = ["Max","Anna"]\par
+names.push("Nisha")\par
+//Here there will be error that push doesn't exist on Readonly type.\par
+*Decorators\par
+to use decorators, you need to uncomment this line in your tsconfig.json file,\par
+,"experimentalDecorators": true \par
+also the target should be set to es6\par
+A Decorator is a special kind of declaration that can be attached to a class declaration, method, accessor, property, or parameter. Decorators use the form @expression, where expression must evaluate to a function that will be called at runtime with information about the decorated declaration.\par
+ Decorator execute when class is defined, not when class is instantiated.\par
+even if we dont instantiate class, we can get decorators.\par
+function Logger(constructor: Function)\{\par
+    console.log("Logging...")\par
+    console.log(constructor)\par
+\}\par
+@Logger       //decorator\par
+class Person\{\par
+    name = "Max";\par
+    constructor()\{\par
+        console.log("Creating person object...")\par
+    \}\par
+\}\par
+const pers = new Person();\par
+console.log(pers);\par
+*Decorator factory\par
+A Decorator Factory is simply a function that returns the expression that will be called by the decorator at runtime.\par
+function Logger(logString: string)\{\par
+    return function(constructor: Function)\{\par
+    console.log(logString)\par
+    console.log(constructor)\par
+    \}\par
+\}\par
+@Logger('LOGGING-PERSON')\par
+class Person\{\par
+    name = "Max";\par
+    constructor()\{\par
+        console.log("Creating person object...")\par
+    \}\par
+\}\par
+*property descriptor\par
+A property descriptor is an object that provides information about a property and defines its behavior. In JavaScript and TypeScript, when you define or access a property of an object, that property can have attributes such as writable, enumerable, configurable, get, and set. These attributes collectively form the property descriptor.\par
+*property decorator\par
+function Log(target: any, propertyName: string | Symbol)\{\par
+     console.log("Property decorator!");\par
+     console.log(target, propertyName)\par
+\}\par
+class Product \{\par
+    @Log\par
+    title: string;\par
+    private _price: number;\par
+\par
+    set price(val: number)\{\par
+        if(val > 0)\{\par
+            this._price = val;\par
+        \}else \{\par
+            throw new Error("Invalid price - should be positive")\par
+        \}\par
+    \}\par
+    constructor(t: string, p: number)\{\par
+        this.title = t;\par
+        this.price = p;\par
+    \}\par
+    getPriceWithTax(tax: number)\{\par
+        return this.price * (1 + tax);\par
+    \}\par
+\}\par
+*Autobind decorator\par
+ a decorator Autobind  automatically binds the method to the instance of the class.\par
+function Autobind(_: any, _2:string | Symbol | number , descriptor: PropertyDescriptor)\{\par
+    const originalMethod = descriptor.value;\par
+    const adjDescriptor: PropertyDescriptor = \{\par
+        configurable: true,\par
+        enumerable: false,\par
+        get()\{ \par
+           const boundFn = originalMethod.bind(this);\par
+           return boundFn\par
+        \},\par
+    \}\par
+    return adjDescriptor;\par
+\}\par
+class Printer \{\par
+    message = "This works!"\par
+    @Autobind\par
+    showMessage()\{\par
+        console.log(this.message)\par
+    \}\par
+\}\par
+\par
+const p = new Printer();\par
+const button = document.querySelector("button")!;\par
+button.addEventListener("click",p.showMessage.bind(p))\par
+\par
+*Namespaces and FileBundling\par
+Namespaces are a TypeScript-specific way to organize code. Namespaces are simply named JavaScript objects in the global namespace. This makes namespaces a very simple construct to use. Unlike modules, they can span multiple files, and can be concatenated using outFile .\par
+eg: namespace name_of_it \{\par
+  export class/interface/etc\par
+\}\par
+-now to import the file exported by namespace , typescript uses special syntax using three backslashes,a selfclosing xml tag and inside that , the name of file we want to import. and this is to be done on top of all code in the file where we want to import.\par
+/// <name_of_file.ts/>\par
+now in all the modules, including the main file where namespace is imported, there should be namespace with same name everywhere.eg. if i have name space named App, then in everyfile:\par
+namespace App\{\par
+//All the remaining code\par
+\}\par
+in all the modules, except the main file(App.ts) , code should be exported.and in app.ts, all the modules should be imported using the above method.\par
+-now other main step is you need to uncomment  "outFile" in tsconfig.json file.this will tell typescript to concatinate namespaces [ so that all the references (importing:   /// <name_of_file.ts/> ) ] into one single javascript file.\par
+set "outfile": "./dist/bundle.js" this will create a new file in dist directory.\par
+if it gives error on compilation, set "module": "amd" instead of common.js \par
+\line *Webpack\par
+webpack helps to compile and bundle modules into a single file, reducing HTTP requests and improving application performance as a result. With webpack, TypeScript code is compiled into a JavaScript file that is browser-friendly.\par
+-to install webpack and its related tools: npm install --save-dev webpack webpack-cli webpack-dev-server typescript ts-loader\par
+-ts-loader tells typescript how to compile ts code to javascript code.\par
+-webpack will look at the imports of the main file(app.js), then it will look at the imports inside that imported files, and so on..\par
+-In tsconfig.json , comment "rootDir": "./src" this as we dont need rootDir.\par
+-we need to remove .js extension from the imported  files.\par
+-make a webpack.config.js file:\par
+module.exports = \{\par
+    entry: "./src/app.ts",\par
+    output: \{\par
+        filename: "bundle.js",\par
+        path: path.resolve(__dirname, "dist")\par
+    \},\par
+    devtool: "inline-source-map",\par
+    module: \{\par
+        rules:[\par
+            \{\par
+                test: /\\.ts$/,\par
+                use:"ts-loader",\par
+                exclude: /node_modules/\par
+            \}\par
+        ]\par
+    \},\par
+    resolve: \{\par
+        extensions: [".ts", ".js"]\par
+    \}\par
+\};\par
+-to use the webpack, we have to use package.json file:\par
+in "scripts", after "start" we have to add  "build": "webpack"\par
+-after that, remove everything from dist folder\par
+-run using: npm run build (you should have "build": "webpack" in package.json file, this will build dist folder with bundle.js in it)\par
+*for use in production environment: create a new file webpack.config.prod.js\par
+also install:  npm install --save-dev clean-webpack-plugin\par
+\par
+const path = require('path')\par
+const CleanPlugin = require("clean-webpack-plugin")\par
+module.exports = \{\par
+    mode: "production",\par
+    entry: "./src/app.ts",\par
+    output: \{\par
+        filename: "bundle.js",\par
+        path: path.resolve(__dirname, "dist"),\par
+    \},\par
+    devtool: "none",\par
+    module: \{\par
+        rules:[\par
+            \{\par
+                test: /\\.ts$/,\par
+                use:"ts-loader",\par
+                exclude: /node_modules/\par
+            \}\par
+        ]\par
+    \},\par
+    resolve: \{\par
+        extensions: [".ts", ".js"]\par
+    \},\par
+    plugins: [\par
+       new CleanPlugin.CleanWebpackPlugin()\par
+    ]\par
+\};\par
+\par
+*ThirdParty Libraries\par
+1. Lodash is a popular utility library for JavaScript that provides a wide range of helpful functions to make working with arrays, objects, strings, and other data types more convenient and efficient.\par
+-as lodash is a javascript library, we have to use a translator so that  typescript can understand  such 3rd party libraries. so we use types for it.\par
+npm install --save-dev@types/lodash\par
+2. class validator:\par
+npm install class-validator --save\par
+It will provide decorators for validation.\par
+-import the decorators from 'class-validator' library\par
+-uncomment "experimentalDecorators": true,   in tsconfig.js\par
+\par
+}
+ 
